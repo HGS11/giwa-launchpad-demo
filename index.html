@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giwa Launchpad — Ammora SDK Demo (GIWA Sepolia)</title>
+  <meta name="description" content="A launchpad / exchange demo built with @ammora-protocol/sdk on the GIWA Sepolia testnet. Read-only on-chain data, testnet only, no real value." />
+  <script type="module" crossorigin src="./assets/index-B2TPBeCw.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Cf0vXOU9.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">GL</div>
+      <div>
+        <h1>Giwa Launchpad</h1>
+        <p class="tagline">Launchpad &amp; exchange demo built with <code>@ammora-protocol/sdk</code></p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="net-badge" id="netBadge">GIWA Sepolia · chain 91342</div>
+      <div class="block-badge">Block <span id="blockNumber">…</span></div>
+      <button id="connectBtn" class="btn btn-primary">Connect wallet</button>
+    </div>
+  </header>
+
+  <div class="banner">
+    Testnet demo for the Ammora Season 2 Builder mission. All data is read live from GIWA Sepolia.
+    Nothing on this page signs or sends a transaction — wallet actions stop at the connect prompt.
+  </div>
+
+  <main>
+    <section id="launchesSection">
+      <div class="section-head">
+        <h2>Live launches</h2>
+        <span class="hint" id="scanStatus">Scanning the launch factory…</span>
+        <button id="refreshBtn" class="btn btn-ghost">Refresh</button>
+      </div>
+      <div id="launchGrid" class="grid"></div>
+      <p id="launchEmpty" class="empty" hidden>No launches found in the scanned block window yet.</p>
+    </section>
+
+    <section id="detailSection" hidden>
+      <div class="section-head">
+        <h2 id="detailTitle">Curve details</h2>
+        <button id="closeDetailBtn" class="btn btn-ghost">Close</button>
+      </div>
+      <div class="detail-layout">
+        <div class="card">
+          <h3>Curve state <span class="sdk-tag">AmmoraV4LaunchCurveClient.getState()</span></h3>
+          <dl id="curveState" class="kv"></dl>
+          <h3>Graduation progress <span class="sdk-tag">getMigrationProgressAtBlock()</span></h3>
+          <div class="progress"><div id="gradBar" class="progress-fill"></div></div>
+          <p id="gradText" class="hint"></p>
+        </div>
+        <div class="card">
+          <h3>Swap quote <span class="sdk-tag">quoteExactInput()</span></h3>
+          <div class="swap-tabs">
+            <button id="buyTab" class="tab active">Buy with WETH</button>
+            <button id="sellTab" class="tab">Sell token</button>
+          </div>
+          <label class="field">
+            <span id="amountLabel">You pay (WETH)</span>
+            <input id="amountIn" type="number" min="0" step="0.001" value="0.01" />
+          </label>
+          <dl id="quoteOut" class="kv"></dl>
+          <button id="quoteBtn" class="btn btn-secondary">Get quote</button>
+          <button id="swapBtn" class="btn btn-primary">Swap</button>
+          <p id="swapNote" class="hint"></p>
+          <pre id="planOut" class="plan" hidden></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="createSection">
+      <div class="section-head">
+        <h2>Create a token</h2>
+        <span class="hint">Simulated preview — no transaction is sent from this demo.</span>
+      </div>
+      <div class="card">
+        <div class="form-grid">
+          <label class="field"><span>Token name</span><input id="tokName" type="text" placeholder="My Ammora Token" maxlength="64" /></label>
+          <label class="field"><span>Symbol</span><input id="tokSymbol" type="text" placeholder="MAT" maxlength="12" /></label>
+          <label class="field"><span>Description</span><input id="tokDesc" type="text" placeholder="A testnet token launched with the Ammora SDK" maxlength="160" /></label>
+          <label class="field"><span>Image URL (optional)</span><input id="tokImage" type="url" placeholder="https://…" /></label>
+        </div>
+        <button id="previewBtn" class="btn btn-secondary">Preview launch</button>
+        <button id="createBtn" class="btn btn-primary">Create token</button>
+        <pre id="createOut" class="plan" hidden></pre>
+        <p class="hint">
+          A real launch would call the SDK's launch flow (<code>createLaunch</code> on the launch factory,
+          config <span id="configHint">…</span>) and needs a wallet signature plus testnet ETH for gas.
+          This demo only builds the metadata URI and stops at the connect prompt.
+        </p>
+      </div>
+    </section>
+
+    <section id="catalogSection">
+      <div class="section-head">
+        <h2>SDK deployment catalog — GIWA Sepolia</h2>
+        <span class="hint">Rendered from <code>giwaSepoliaAutoRouteDeployment</code> in @ammora-protocol/sdk@0.3.9</span>
+      </div>
+      <div id="catalog" class="catalog"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Built with <a href="https://www.npmjs.com/package/@ammora-protocol/sdk" target="_blank" rel="noopener">@ammora-protocol/sdk@0.3.9</a>
+      · <a href="https://github.com/ammora-labs/ammora-protocol" target="_blank" rel="noopener">GitHub</a>
+      · <a href="https://ammora-docs.vercel.app/guides/launchpad" target="_blank" rel="noopener">Launchpad guide</a>
+      · <a href="https://sepolia-explorer.giwa.io" target="_blank" rel="noopener">GIWA Sepolia explorer</a>
+    </p>
+    <p class="hint">Demo app for the Ammora Season 2 Builder mission. GIWA Sepolia testnet only — tokens have no real value. Not financial advice.</p>
+  </footer>
+
+</body>
+</html>
